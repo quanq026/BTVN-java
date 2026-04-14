@@ -46,15 +46,10 @@ def get_files_in_folder(folder_path):
     files.sort(key=lambda x: [int(c) if c.isdigit() else c.lower() for c in re.split('([0-9]+)', x)])
     return files
 
-def get_github_links(folder_name):
-    """Generate GitHub links for all files in a folder."""
-    files = get_files_in_folder(folder_name)
-    links = []
-    for file in files:
-        # Construct link: https://github.com/user/repo/blob/branch/folder/file
-        link = f"{GITHUB_REPO_URL}/blob/{BRANCH_NAME}/{folder_name}/{file}"
-        links.append(link)
-    return links
+def get_github_folder_link(folder_name):
+    """Generate GitHub link for a lesson folder."""
+    # Use tree URL so user can share the folder link instead of child files.
+    return f"{GITHUB_REPO_URL}/tree/{BRANCH_NAME}/{folder_name}"
 
 def run_git_commands(message):
     """Automate git add, commit, and push."""
@@ -109,11 +104,10 @@ def main_menu():
                 commit_msg = f"Update {latest_lesson}"
             
             if run_git_commands(commit_msg):
-                links = get_github_links(latest_lesson)
-                print(f"\n>>> COPY LINK {latest_lesson} DE GUI GIAO VIEN:")
+                folder_link = get_github_folder_link(latest_lesson)
+                print(f"\n>>> COPY LINK FOLDER {latest_lesson} DE GUI GIAO VIEN:")
                 print("-" * 50)
-                for link in links:
-                    print(link)
+                print(folder_link)
                 print("-" * 50)
                 input("\nDone! Nhan Enter de quay lai menu...")
         
@@ -126,11 +120,10 @@ def main_menu():
                 lesson_choice = input(f"Chon so (1-{len(lesson_folders)}): ").strip()
                 if not lesson_choice: continue
                 selected_folder = lesson_folders[int(lesson_choice) - 1]
-                links = get_github_links(selected_folder)
-                print(f"\n>>> LINK CAC FILE TRONG {selected_folder}:")
+                folder_link = get_github_folder_link(selected_folder)
+                print(f"\n>>> LINK FOLDER {selected_folder}:")
                 print("-" * 50)
-                for link in links:
-                    print(link)
+                print(folder_link)
                 print("-" * 50)
                 input("\nNhan Enter de quay lai menu...")
             except (ValueError, IndexError):
