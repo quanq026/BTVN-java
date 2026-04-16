@@ -1,17 +1,14 @@
 import java.util.Scanner;
-import java.util.Locale;
 
 public class CircleArea {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
-        System.out.print("Nhap ban kinh: ");
-        double radius = scanner.nextDouble();
+        System.out.print("Nhap ban kinh hinh tron: ");
+        double banKinh = Double.parseDouble(sc.nextLine().replace(",", "."));
 
-        double area = Math.PI * radius * radius;
+        double dienTich = Math.PI * banKinh * banKinh;
 
-        System.out.printf(Locale.US, "Dien tich: %.2f%n", area);
-
-        scanner.close();
+        System.out.printf("Dien tich hinh tron la: %.2f%n", dienTich);
     }
 }
