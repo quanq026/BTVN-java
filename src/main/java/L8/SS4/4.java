@@ -1,6 +1,28 @@
-package com.rikkei.session8.ex6593;
+class Exercise4 {
+    static final class Rectangle {
+        private final double width;
+        private final double height;
 
-public class Main {
+        Rectangle(double width, double height) {
+            this.width = width;
+            this.height = height;
+        }
+
+        double getArea() {
+            return width * height;
+        }
+
+        double getPerimeter() {
+            return 2 * (width + height);
+        }
+
+        @Override
+        public String toString() {
+            return String.format("Rectangle(width=%.2f, height=%.2f, area=%.2f, perimeter=%.2f)",
+                    width, height, getArea(), getPerimeter());
+        }
+    }
+
     public static void main(String[] args) {
         Rectangle[] rectangles = {
                 new Rectangle(3, 4),
