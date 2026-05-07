@@ -10,14 +10,13 @@ class Exercise1 {
             this.age = age;
         }
 
-        @Override
-        public String toString() {
-            return "Student{id=" + id + ", name='" + name + "', age=" + age + "}";
+        void printInfo() {
+            System.out.printf("ID: %d, Name: %s, Age: %d%n", id, name, age);
         }
     }
 
     public static void main(String[] args) {
-        Student student = new Student(1, "Nguyen Van A", 20);
-        System.out.println(student);
+        Student student = new Student(1, "Nguyễn Văn A", 20);
+        student.printInfo();
     }
 }

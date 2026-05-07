@@ -7,7 +7,8 @@ class Exercise3 {
 
         static void setRate(double newRate) {
             if (newRate <= 0) {
-                throw new IllegalArgumentException("Rate must be positive");
+                System.out.println("Ty gia khong hop le");
+                return;
             }
             rate = newRate;
         }
@@ -21,14 +22,16 @@ class Exercise3 {
         }
 
         static String formatUSD(double usd) {
-            return String.format("$%,.2f", usd);
+            return String.format("%.2f USD", usd);
         }
     }
 
     public static void main(String[] args) {
-        CurrencyConverter.setRate(25000);
-        double usd = CurrencyConverter.toUSD(500000);
-        System.out.println("Rate: " + CurrencyConverter.getRate());
-        System.out.println("USD: " + CurrencyConverter.formatUSD(usd));
+        int vnd = 500000;
+        CurrencyConverter.setRate(25000.0);
+        double usd = CurrencyConverter.toUSD(vnd);
+
+        System.out.println("Ty gia hien hanh: " + CurrencyConverter.getRate());
+        System.out.println(vnd + " VND = " + CurrencyConverter.formatUSD(usd));
     }
 }

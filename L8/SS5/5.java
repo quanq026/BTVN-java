@@ -10,7 +10,7 @@ class Exercise5 {
         private int id;
         private String name;
         private double gpa;
-        static final double SCORE_FACTOR = 0.25;
+        private final double SCORE_FACTOR = 0.25;
 
         Student() {
             countStudent++;
@@ -24,20 +24,17 @@ class Exercise5 {
         }
 
         void input() {
-            input(SCANNER);
-        }
-
-        void input(Scanner scanner) {
-            System.out.print("Enter id: ");
-            this.id = Integer.parseInt(scanner.nextLine().trim());
-            System.out.print("Enter name: ");
-            this.name = scanner.nextLine().trim();
-            System.out.print("Enter gpa: ");
-            this.gpa = Double.parseDouble(scanner.nextLine().trim());
+            System.out.print("Nhap ma so: ");
+            id = Integer.parseInt(SCANNER.nextLine());
+            System.out.print("Nhap ho ten: ");
+            name = SCANNER.nextLine();
+            System.out.print("Nhap diem trung binh: ");
+            gpa = Double.parseDouble(SCANNER.nextLine());
         }
 
         void print() {
-            System.out.printf("Student{id=%d, name='%s', gpa=%.2f, factor=%.2f}%n", id, name, gpa, SCORE_FACTOR);
+            System.out.printf("ID: %d, Name: %s, GPA: %.2f, Quy doi: %.2f%n",
+                    id, name, gpa, gpa * SCORE_FACTOR);
         }
 
         double getGpa() {
@@ -54,40 +51,51 @@ class Exercise5 {
         List<Student> students = new ArrayList<>();
 
         while (true) {
-            System.out.println("1. Add student");
-            System.out.println("2. Print students");
-            System.out.println("3. Find highest GPA student");
-            System.out.println("4. Total students created");
-            System.out.println("5. Exit");
-            System.out.print("Choose: ");
+            System.out.println("1. Nhap danh sach sinh vien");
+            System.out.println("2. In danh sach sinh vien");
+            System.out.println("3. Tim sinh vien co diem cao nhat");
+            System.out.println("4. Hien thi tong so sinh vien da tao");
+            System.out.println("5. Thoat");
+            System.out.print("Chon: ");
 
-            int choice = Integer.parseInt(scanner.nextLine().trim());
-            switch (choice) {
-                case 1 -> {
+            int choice = Integer.parseInt(scanner.nextLine());
+
+            if (choice == 1) {
+                System.out.print("Nhap so sinh vien: ");
+                int number = Integer.parseInt(scanner.nextLine());
+                for (int i = 0; i < number; i++) {
                     Student student = new Student();
-                    student.input(scanner);
+                    System.out.println("Sinh vien thu " + (i + 1) + ":");
+                    student.input();
                     students.add(student);
                 }
-                case 2 -> students.forEach(Student::print);
-                case 3 -> {
-                    if (students.isEmpty()) {
-                        System.out.println("No students.");
-                    } else {
-                        Student best = students.get(0);
-                        for (Student student : students) {
-                            if (student.getGpa() > best.getGpa()) {
-                                best = student;
-                            }
-                        }
-                        System.out.println("Highest GPA student:");
-                        best.print();
+            } else if (choice == 2) {
+                if (students.isEmpty()) {
+                    System.out.println("Danh sach rong.");
+                } else {
+                    for (Student student : students) {
+                        student.print();
                     }
                 }
-                case 4 -> System.out.println("Total students created: " + Student.getTotalStudent());
-                case 5 -> {
-                    return;
+            } else if (choice == 3) {
+                if (students.isEmpty()) {
+                    System.out.println("Danh sach rong.");
+                } else {
+                    Student bestStudent = students.get(0);
+                    for (Student student : students) {
+                        if (student.getGpa() > bestStudent.getGpa()) {
+                            bestStudent = student;
+                        }
+                    }
+                    System.out.println("Sinh vien co diem cao nhat:");
+                    bestStudent.print();
                 }
-                default -> System.out.println("Invalid choice.");
+            } else if (choice == 4) {
+                System.out.println("Tong so sinh vien da tao: " + Student.getTotalStudent());
+            } else if (choice == 5) {
+                break;
+            } else {
+                System.out.println("Lua chon khong hop le.");
             }
         }
     }

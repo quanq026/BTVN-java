@@ -1,5 +1,5 @@
 class Exercise4 {
-    static final class Rectangle {
+    static class Rectangle {
         private final double width;
         private final double height;
 
@@ -16,9 +16,16 @@ class Exercise4 {
             return 2 * (width + height);
         }
 
-        @Override
-        public String toString() {
-            return String.format("Rectangle(width=%.2f, height=%.2f, area=%.2f, perimeter=%.2f)",
+        double getWidth() {
+            return width;
+        }
+
+        double getHeight() {
+            return height;
+        }
+
+        void printInfo() {
+            System.out.printf("Width: %.2f, Height: %.2f, Area: %.2f, Perimeter: %.2f%n",
                     width, height, getArea(), getPerimeter());
         }
     }
@@ -31,22 +38,29 @@ class Exercise4 {
         };
 
         Rectangle largest = rectangles[0];
-        boolean tie = false;
+        int countLargest = 0;
 
         for (Rectangle rectangle : rectangles) {
-            System.out.println(rectangle);
+            rectangle.printInfo();
+        }
+
+        for (Rectangle rectangle : rectangles) {
             if (rectangle.getArea() > largest.getArea()) {
                 largest = rectangle;
-                tie = false;
-            } else if (Math.abs(rectangle.getArea() - largest.getArea()) < 1e-9 && rectangle != largest) {
-                tie = true;
             }
         }
 
-        if (tie) {
-            System.out.println("There are multiple rectangles with the same largest area: " + largest.getArea());
+        for (Rectangle rectangle : rectangles) {
+            if (Math.abs(rectangle.getArea() - largest.getArea()) < 1e-9) {
+                countLargest++;
+            }
+        }
+
+        if (countLargest > 1) {
+            System.out.printf("Co nhieu hinh co dien tich lon nhat: %.2f%n", largest.getArea());
         } else {
-            System.out.println("Largest area: " + largest.getArea() + " -> " + largest);
+            System.out.printf("Hinh co dien tich lon nhat: %.2f%n", largest.getArea());
+            largest.printInfo();
         }
     }
 }

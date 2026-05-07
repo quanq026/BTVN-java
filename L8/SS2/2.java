@@ -10,14 +10,13 @@ class Exercise2 {
             this.price = price;
         }
 
-        @Override
-        public String toString() {
-            return "Book{title='" + title + "', author='" + author + "', price=" + price + "}";
+        void printInfo() {
+            System.out.printf("Title: %s, Author: %s, Price: %.2f%n", title, author, price);
         }
     }
 
     public static void main(String[] args) {
-        Book book = new Book("Clean Code", "Robert C. Martin", 45.5);
-        System.out.println(book);
+        Book book = new Book("Clean Code", "Robert C. Martin", 45.50);
+        book.printInfo();
     }
 }

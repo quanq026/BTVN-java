@@ -10,10 +10,10 @@ class Exercise6 {
         private int id;
         private String name;
         private double price;
-        static final String WAREHOUSE_CODE = "KHO-01";
+        private final String WAREHOUSE_CODE = "KHO-01";
 
         Product() {
-            this.id = AUTO_ID++;
+            id = AUTO_ID++;
         }
 
         Product(String name, double price) {
@@ -23,18 +23,15 @@ class Exercise6 {
         }
 
         void input() {
-            input(SCANNER);
-        }
-
-        void input(Scanner scanner) {
-            System.out.print("Enter product name: ");
-            this.name = scanner.nextLine().trim();
-            System.out.print("Enter product price: ");
-            this.price = Double.parseDouble(scanner.nextLine().trim());
+            System.out.print("Nhap ten san pham: ");
+            name = SCANNER.nextLine();
+            System.out.print("Nhap gia san pham: ");
+            price = Double.parseDouble(SCANNER.nextLine());
         }
 
         void print() {
-            System.out.printf("Product{id=%d, code='%s', name='%s', price=%.2f}%n", id, WAREHOUSE_CODE, name, price);
+            System.out.printf("ID: %d, Name: %s, Price: %.2f, Warehouse: %s%n",
+                    id, name, price, WAREHOUSE_CODE);
         }
 
         double getPrice() {
@@ -51,47 +48,59 @@ class Exercise6 {
         List<Product> products = new ArrayList<>();
 
         while (true) {
-            System.out.println("1. Add product");
-            System.out.println("2. Show products");
-            System.out.println("3. Search by price range");
-            System.out.println("4. Product count");
-            System.out.println("5. Exit");
-            System.out.print("Choose: ");
+            System.out.println("1. Nhap danh sach san pham");
+            System.out.println("2. In danh sach san pham");
+            System.out.println("3. Tim san pham theo khoang gia");
+            System.out.println("4. Hien thi tong so san pham da tao");
+            System.out.println("5. Thoat");
+            System.out.print("Chon: ");
 
-            int choice = Integer.parseInt(scanner.nextLine().trim());
-            switch (choice) {
-                case 1 -> {
+            int choice = Integer.parseInt(scanner.nextLine());
+
+            if (choice == 1) {
+                System.out.print("Nhap so san pham: ");
+                int number = Integer.parseInt(scanner.nextLine());
+                for (int i = 0; i < number; i++) {
                     Product product = new Product();
-                    product.input(scanner);
+                    System.out.println("San pham thu " + (i + 1) + ":");
+                    product.input();
                     products.add(product);
                 }
-                case 2 -> products.forEach(Product::print);
-                case 3 -> {
-                    System.out.print("Min price: ");
-                    double min = Double.parseDouble(scanner.nextLine().trim());
-                    System.out.print("Max price: ");
-                    double max = Double.parseDouble(scanner.nextLine().trim());
-                    if (min > max) {
-                        double temp = min;
-                        min = max;
-                        max = temp;
-                    }
-                    boolean found = false;
+            } else if (choice == 2) {
+                if (products.isEmpty()) {
+                    System.out.println("Danh sach rong.");
+                } else {
                     for (Product product : products) {
-                        if (product.getPrice() >= min && product.getPrice() <= max) {
-                            product.print();
-                            found = true;
-                        }
-                    }
-                    if (!found) {
-                        System.out.println("No product in that range.");
+                        product.print();
                     }
                 }
-                case 4 -> System.out.println("Total products created: " + Product.getTotalProduct());
-                case 5 -> {
-                    return;
+            } else if (choice == 3) {
+                System.out.print("Nhap gia nho nhat: ");
+                double min = Double.parseDouble(scanner.nextLine());
+                System.out.print("Nhap gia lon nhat: ");
+                double max = Double.parseDouble(scanner.nextLine());
+                if (min > max) {
+                    double temp = min;
+                    min = max;
+                    max = temp;
                 }
-                default -> System.out.println("Invalid choice.");
+
+                boolean found = false;
+                for (Product product : products) {
+                    if (product.getPrice() >= min && product.getPrice() <= max) {
+                        product.print();
+                        found = true;
+                    }
+                }
+                if (!found) {
+                    System.out.println("Khong tim thay san pham phu hop.");
+                }
+            } else if (choice == 4) {
+                System.out.println("Tong so san pham da tao: " + Product.getTotalProduct());
+            } else if (choice == 5) {
+                break;
+            } else {
+                System.out.println("Lua chon khong hop le.");
             }
         }
     }
