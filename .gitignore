@@ -1,14 +1,3 @@
 btvn_helper.py
 __pycache__/
 *.pyc
-target/
-.idea/
-*.iml
-uploads/
-logs/
-.env
-rikkei_temp_*.py
-rikkei_*.py
-build_session*.py
-fix_artifact_ids.py
-generate_spring_homework.py
